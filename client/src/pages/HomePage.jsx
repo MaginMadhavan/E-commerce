@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '../componets/Layouts/Layout'
+import Layout from '../components/Layouts/Layout.jsx'
 import {useAuth} from "../context/auth.jsx";
 
 const HomePage = () => {
