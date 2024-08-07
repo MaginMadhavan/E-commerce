@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '../componets/Layouts/Layout'
+import Layout from '../components/Layouts/Layout'
 
 const Policy = () => {
   return (
