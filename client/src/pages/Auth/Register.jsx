@@ -14,13 +14,14 @@ const Register = () => {
     const [email,setMail]=useState("");
     const [phone,setPhone]=useState("");
     const [address,setAddress]=useState("");
+    const [answer,setAnswer]=useState("");
     const [password,setPassword]=useState("");
     const navigate= useNavigate();
 
     const handleSubmit = async (e)=>{
         e.preventDefault()
         try{
-          const res = await axios.post(`http://localhost:8080/api/v1/auth/register`, { name, email, password, address, phone });
+          const res = await axios.post(`http://localhost:8080/api/v1/auth/register`, { name, email, password, address,answer, phone });
           if(res.data.success){
             toast.success(res.data.message)
             navigate('/login');
@@ -52,6 +53,9 @@ const Register = () => {
     </div>
     <div className="mb-3">
       <input required placeholder="Address" type="text" className="form-control" id="exampleInputAddress" value={address} onChange={(e)=>setAddress(e.target.value)}/>
+    </div>
+    <div className="mb-3">
+      <input required placeholder="Favorite Color ?" type="text" className="form-control" id="exampleInputAnswer" value={answer} onChange={(e)=>setAnswer(e.target.value)}/>
     </div>
     <div className="mb-3">
       <input required placeholder="Password" type="password" className="form-control" id="exampleInputPassword" value={password} onChange={(e)=>setPassword(e.target.value)}/>
