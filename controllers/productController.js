@@ -69,8 +69,7 @@ export const getProductController = async (req,res) => {
 export const getSingleProductController = async (req,res)=>{
 
     try {
-        const{slug}= req.params.slug;
-        const product = await productModel.findOne(slug).select('-photo').populate('category');
+        const product = await productModel.findOne({slug: req.params.slug}).select('-photo').populate("category");
         res.status(200).send({
             success:true,
             message:'Product fetched successfully',

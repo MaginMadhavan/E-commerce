@@ -77,8 +77,7 @@ export const categoryController = async (req,res)=>{
 
 export const singleCategoryController = async (req,res)=>{
     try {
-        const {slug}=req.params.slug;
-        const category = await categoryModel.findOne({slug});
+        const category = await categoryModel.findOne({slug:req.params.slug});
         res.status(200).send({
             success:true,
             message:'Category fetched successfully',
