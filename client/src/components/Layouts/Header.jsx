@@ -3,6 +3,7 @@ import {NavLink,Link} from 'react-router-dom'
 import { GiShoppingCart } from "react-icons/gi";
 import { useAuth } from '../../context/auth';
 import toast from "react-hot-toast"
+import SearchInput from '../form/SearchInput';
 
 
 const Header = () => {
@@ -25,6 +26,7 @@ const Header = () => {
 
           <Link  className="navbar-brand" > <GiShoppingCart/> E-Commerce App </Link>
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+            <SearchInput/>
             <li className="nav-item">
               <NavLink to="/" className="nav-link " >Home</NavLink>
             </li>
