@@ -45,10 +45,10 @@ const CreateCategory = () => {
       toast.error('Something went wrong in getting categories')
     }
   }
-
   useEffect(()=>{
     getAllCategory();
   },[])
+  
   //handle update
   const handleUpdate = async (e)=>{
     e.preventDefault();
