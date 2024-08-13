@@ -49,7 +49,7 @@ export const createProductController = async (req,res) =>{
 
 export const getProductController = async (req,res) => {
     try {
-        const products = await productModel.find({}).populate('category').select("-photo").limit(12).sort({createdAt:-1});
+        const products = await productModel.find({}).populate('category').select("-photo").limit(30).sort({createdAt:-1});
         res.status(200).send({
             success:true,
             message: 'All Products',
@@ -162,6 +162,75 @@ export const updateProductController = async (req,res)=>{
             success:false,
             message: 'Error while updating product',
             error,
+        })
+    }
+}
+//filter
+export const productFilterController = async(req,res)=>{
+    try {
+        const {checked,radio} = req.body
+        let args = {};
+        if(checked.length > 0)args.category = checked;
+        if(radio.length) args.price = {$gte:radio[0],$lte:radio[1]};
+        const products = await productModel.find(args);
+        res.status(200).send({
+            success:true,
+            message: 'Filtered Products',
+            total: products.length,
+            products,
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            success: false,
+            message: 'Error while filtering products',
+            error,
+        })
+    }
+}
+
+//productCountController
+
+export const productCountController =async (req,res)=>{
+    try {
+        const total = await productModel.find({}).estimatedDocumentCount();
+        res.status(200).send({
+            success:true,
+            total
+
+        })
+    } catch (error) {
+      console.log(error);
+      res.status(400).send({
+        message:'Error in product count',
+        error,
+        success:false
+      })  
+    }
+}
+
+//product list based on page
+
+export const productListController = async(req,res)=>{
+    try {
+        const perPage = 6
+        const page = req.params.page ? req.params.page : 1
+        const products = await productModel.find({}).select("-photo").skip((page-1)*perPage).limit(perPage).sort({createdAt:-1})
+        res.status(200).send({
+            success:true,
+            message: 'Products listed successfully',
+            total: products.length,
+            products,
+            currentPage: page,
+            perPage,
+            totalPages: Math.ceil(products.length/perPage)  //total pages calculated by dividing total documents by perPage documents per page
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            message:'Error in per page list',
+            error,
+            success:false
         })
     }
 }
